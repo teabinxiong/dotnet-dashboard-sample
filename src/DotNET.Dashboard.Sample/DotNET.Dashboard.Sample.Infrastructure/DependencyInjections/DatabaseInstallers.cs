@@ -28,6 +28,7 @@ namespace DotNET.Dashboard.Sample.Infrastructure.DependencyInjections
                 options.UseSqlServer(conString, x => x.MigrationsAssembly("DotNET.Dashboard.Sample.Infrastructure"));
             });
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeJobTitleRepository, EmployeeJobTitleRepository>();
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<SalesManagementDbContext>());
 
             return services;
