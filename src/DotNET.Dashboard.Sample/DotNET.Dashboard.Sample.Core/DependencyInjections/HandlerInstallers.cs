@@ -17,6 +17,7 @@ namespace DotNET.Dashboard.Sample.Core.DependencyInjections
                  IConfiguration configuration)
         {
             services.AddTransient(typeof(ListEmployeesQueryHandler));
+            services.AddTransient(typeof(ListEmployeeJobTitlesQueryHandler));
             return services;
         }
     }
