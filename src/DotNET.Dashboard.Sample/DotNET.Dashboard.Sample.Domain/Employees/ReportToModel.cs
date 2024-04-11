@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace DotNET.Dashboard.Sample.Domain.Employees
 {
-    public interface IEmployeeRepository
+    public sealed class ReportToModel
     {
-        Task<List<EmployeeModel>> ListEmployees();
-        Task<List<ReportToModel>> ListReportToEmployees();
+        public long? ReportToEmpId { get; set; }
+
+        public string ReportToName { get; set; }
     }
 }

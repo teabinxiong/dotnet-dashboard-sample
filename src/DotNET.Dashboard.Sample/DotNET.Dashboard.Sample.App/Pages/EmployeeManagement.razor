@@ -5,6 +5,7 @@
 @using Syncfusion.Blazor.DropDowns
 
 @inject ListEmployeesQueryHandler listEmployeeQueryHandler
+@inject ListReportToEmployeesQueryHandler listReportToEmployeeQueryHandler
 @inject ListEmployeeJobTitlesQueryHandler listEmployeeJobTitlesQueryHandler
 
 <h3>EmployeeManagement</h3>
@@ -48,7 +49,27 @@
                 </EditTemplate>
             </GridColumn>
             <GridColumn HeaderText="DOB" Field="@nameof(EmployeeModel.DateOfBirth)" Format="d"></GridColumn>
-            <GridColumn HeaderText="Reports" Field="@nameof(EmployeeModel.ReportToEmpId)" Width="100px"></GridColumn>
+
+            <GridForeignColumn HeaderText="Reports To"
+                               TValue="ReportToModel"
+                               Field="@nameof(EmployeeModel.ReportToEmpId)"
+                               ForeignDataSource="reportToEmployeeData"
+                               ForeignKeyValue="ReportToName"
+                               ForeignKeyField="ReportToEmpId"
+                               Width="100px">
+
+                <EditTemplate>
+                    <SfDropDownList @bind-Value="@((context as EmployeeModel).ReportToEmpId)"
+                                    ID="ReportToEmpId"
+                                    DataSource="reportToEmployeeData"
+                                    TItem="ReportToModel"
+                                    TValue="Nullable<long>">
+                        <DropDownListFieldSettings Text="ReportToName" Value="ReportToEmpId">
+                        </DropDownListFieldSettings>
+                    </SfDropDownList>
+                </EditTemplate>
+            </GridForeignColumn>
+
         </GridColumns>
     </SfGrid>
 </div>
@@ -64,13 +85,17 @@
     private string[] genderCollection = Enum.GetNames(typeof(GenderVal));
     private List<EmployeeModel>? employeeData = null;
     private List<EmployeeJobTitle>? employeeJobTitleData = null;
+    private List<ReportToModel>? reportToEmployeeData = null;
     //private List<string> toolbar = new List<string> { "Add", "Edit", "Update", "Cancel", "Search" };
 
     protected override async Task OnInitializedAsync()
     {
         var employeeListResult = await listEmployeeQueryHandler.Run(new ListEmployeesQuery());
         var employeeJobTitleListResult = await listEmployeeJobTitlesQueryHandler.Run(new ListEmployeeJobTitlesQuery());
+        var listReportToEmployeeResult = await listReportToEmployeeQueryHandler.Run(new ListReportToEmployeesQuery());
+
         employeeData = employeeListResult.EmployeeList;
         employeeJobTitleData = employeeJobTitleListResult.EmployeeJobTitleList;
+        reportToEmployeeData = listReportToEmployeeResult.ReportToEmployeeList;
     }
 }

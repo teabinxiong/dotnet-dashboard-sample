@@ -17,6 +17,6 @@ namespace DotNET.Dashboard.Sample.Domain.Employees
         public DateTime DateOfBirth { get; set; }
         public long? ReportToEmpId { get; set; }
         public string ImagePath { get; set; }
-        public int EmployeeJobTitleId { get; set; }
+        public long EmployeeJobTitleId { get; set; }
     }
 }

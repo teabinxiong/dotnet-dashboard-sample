@@ -37,7 +37,7 @@ namespace DotNET.Dashboard.Sample.Domain.Employees
                         EmployeeJobTitleId = e.EmployeeJobTitleId,
                         Email = e.Email,
                         DateOfBirth = e.DateOfBirth,
-                        ReportToEmpId = e.Id,
+                        ReportToEmpId = e.ReportToEmpId,
                         Gender = e.Gender,
                         ImagePath = e.ImagePath
                     });
